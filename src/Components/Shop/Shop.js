@@ -31,7 +31,7 @@ const Shop = () => {
       </div>
 
       <div className="order-summary">
-        <h3>order summery</h3>
+        <h3>order summery some new</h3>
         <p>Items Added: {cart.length}</p>
       </div>
     </div>
