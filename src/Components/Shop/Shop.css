@@ -10,3 +10,7 @@
   grid-template-columns: repeat(3, 1fr);
   padding: 120px 80px;
 }
+
+.order-summary {
+  background-color: rgba(255, 153, 0, 0.3);
+}
