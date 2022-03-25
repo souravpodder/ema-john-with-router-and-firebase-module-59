@@ -10,39 +10,46 @@ const Shop = () => {
   const [cart, setCart] = useState([]);
 
   useEffect(()=>{
-    console.log('product started loading');
+    // console.log('product started loading');
     fetch('products.json')
     .then(res => res.json())
-    .then(data => {
-      setProducts(data);
-      console.log('product loaded fully');
-    })
+    .then(data => setProducts(data))
   },[])
   
   useEffect(()=>{
-    console.log('local storage first line', products);
-    const shoppingCart = getShoppingCart();
+    let storedCart = getShoppingCart();
+    // console.log(storedCart);
     const savedCart = [];
-    for(const id in shoppingCart){
+    for(const id in storedCart){
       const addedProduct = products.find(product => product.id === id);
       if(addedProduct){
-        const quantity = shoppingCart[id];
+        let quantity = storedCart[id];
         addedProduct.quantity = quantity;
         savedCart.push(addedProduct);
-        
       }
-      
-      
     }
 
     setCart(savedCart);
     // console.log(savedCart);
-  }, [products]);
+  },[products])
 
-  const handleAddToCart = (product) => {
-    const newCart = [...cart, product];
+  const handleAddToCart = (selectedProduct) => {
+
+    const exists = cart.find(product => product.id === selectedProduct.id);
+    let newCart;
+    if(!exists){
+      selectedProduct.quantity = 1;
+      newCart = [...cart, selectedProduct];
+    }else{
+      selectedProduct.quantity = selectedProduct.quantity + 1;
+      const rest = cart.filter(product => product.id !== selectedProduct.id);
+      newCart = [...rest, selectedProduct];
+    }
+
+    
+    // const newCart = [...cart, selectedProduct];
     setCart(newCart);
-    addToDb(product.id);
+    addToDb(selectedProduct.id);
   }
 
   return (
