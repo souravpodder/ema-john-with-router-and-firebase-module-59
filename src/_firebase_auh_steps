@@ -26,3 +26,12 @@
  * 5. firebase deploy (every time you want to deploy)
  * 
 */
+
+/*
+*firebase init:
+*hosting configure files for firebase hosting
+*space+enter
+*use existing project
+*public directory -> build
+
+*/
